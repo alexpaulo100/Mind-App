@@ -4,6 +4,12 @@ class ContentsController < ApplicationController
 
     def index
         @contents = current_user.contents
+
+        tag_names = params[:tags]
+
+        if tag_name.present?
+            @contents = @contents.joins(:tags).where(tags: { name: tag_names }).distinct
+        end
     end
 
 
